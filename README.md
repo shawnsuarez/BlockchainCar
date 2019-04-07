@@ -1,11 +1,12 @@
-const { deploy, retrieve } =  require("./blockchain/deploy");
-const { interface, bytecode } = require("./blockchain/compile");
+# Blockchain Car Data
 
-// Get block address from other DB
-let retrurnAddress = "0x5A9E7014784134b0880A27B33BB6BE6393b160c0";
-let vin = 1234;
-let status = "Brakes: Poor, Transmission: Good";
+Using the Rinkeby Ethereum Test Network, deploy and retrieve car data.
 
+### How to
+
+Example is shown in testblock.js:
+
+```javascript
 // Push data onto blockchain, returns a block address for data retrieval
 const pushData = async(v, s) => {
 	return await deploy(v, s);
@@ -21,3 +22,4 @@ getData(interface, retrurnAddress).then(data => {
 	console.log(data);
 })
 .catch(err => console.log(err));
+```
