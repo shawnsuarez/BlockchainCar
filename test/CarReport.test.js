@@ -1,7 +1,7 @@
 const assert = require("assert");
 const ganache = require("ganache-cli");
 const Web3 = require("web3"); // Web3 c-tor
-const { interface, bytecode } = require("../compile");
+const { interface, bytecode } = require("../blockchain/compile");
 
 const provider = ganache.provider();
 const web3 = new Web3(provider); // Creates web3 instance
