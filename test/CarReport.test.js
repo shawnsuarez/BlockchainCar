@@ -39,10 +39,10 @@ describe("CarReport", () => {
 		assert.equal(status, initialStatus);
 	});
 
-	it("change status", async () => {
+	/*it("change status", async () => {
 		const newStatus = "Brake: Critical, Transmission: Poor";
 		await carReport.methods.setStatus(newStatus).send({ from: accounts[0] });
 		const status = await carReport.methods.status().call();
 		assert.equal(status, newStatus);
-	});
+	});*/
 });

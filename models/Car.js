@@ -1,12 +1,11 @@
 const mongoose = require("mongoose");
-
 const Schema = mongoose.Schema;
 
 const carSchema = new Schema({
-  vin: Number,
-  record: [
-    { date: Date, blockAdress: String }
-  ]
+  vin: String,
+  records: { data: Object, blockAddr: String },
+  history: { data: Object, blockAddr: String },
+  component: { data: Object, blockAddr: String }
 });
 
-mongoose.model("cars", carSchema);
+module.exports = mongoose.model("cars", carSchema);

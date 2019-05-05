@@ -12,12 +12,10 @@ const web3 = new Web3(provider);
 
 const initialVin = "1234";
 const initialStatus = "Brakes: Good, Transmission: Good";
-let retrurnAddress = "0x5A9E7014784134b0880A27B33BB6BE6393b160c0";
+//let retrurnAddress = "0x5A9E7014784134b0880A27B33BB6BE6393b160c0";
 
-const deploy = async (vin, status) => {
+/*const deploy = async (vin, status) => {
 	const accounts = await web3.eth.getAccounts();
-
-	console.log("Attempting to deploy from account", accounts[0]);
 
 	// Deploy CarReport Contract with initial VIN and initial Status
 	const result = await new web3.eth.Contract(JSON.parse(interface))
@@ -25,7 +23,7 @@ const deploy = async (vin, status) => {
 		.send({ gas: "1000000", from: accounts[0] });
 
 	retrurnAddress = result.options.address;
-	console.log("Contract deployed to", result.options.address);
+	//console.log("Contract deployed to", result.options.address);
 	return retrurnAddress;
 };
 
@@ -40,8 +38,42 @@ const retrieve = async (interface, address) => {
 		status: resultStatus
 	}
 
-	console.log(record.vin);
-	console.log(record.status);
+	//console.log(record.vin);
+	//console.log(record.status);
+	return record;
+};
+
+module.exports.deploy = deploy;
+module.exports.retrieve = retrieve;*/
+
+const deploy = async (vin, type, hash) => {
+	const accounts = await web3.eth.getAccounts();
+
+	// Deploy CarReport Contract with initial VIN and initial Status
+	const result = await new web3.eth.Contract(JSON.parse(interface))
+		.deploy({ data: bytecode, arguments: [ vin, type, hash ] })
+		.send({ gas: "1000000", from: accounts[0] });
+
+	let retrurnAddress = result.options.address;
+	//console.log("Contract deployed to", result.options.address);
+	return retrurnAddress;
+};
+
+// Retrive contract at a given block address using the contract's ABI
+const retrieve = async (interface, address) => {
+	const result = await new web3.eth.Contract(JSON.parse(interface), address);
+	const resultVIN = await result.methods.vin().call();
+	const resultType = await result.methods.recordType().call();
+	const resultHash = await result.methods.recordHash().call();
+
+	const record = {
+		vin: resultVIN,
+		type: resultType,
+		status: resultHash
+	}
+
+	//console.log(record.vin);
+	//console.log(record.status);
 	return record;
 };
 

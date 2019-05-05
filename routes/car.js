@@ -6,7 +6,7 @@ const { deploy, retrieve } =  require("../deploy");
 const { interface, bytecode } = require("../compile");
 
 module.exports = app => {
-	app.post("/api/create-record", async (req, res) => {
+	app.post("/create-record", async (req, res) => {
 		const { vin, data, date } = req.body;
 
 		const blockAddress = await deploy(vin, data);
